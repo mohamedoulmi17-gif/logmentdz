@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>logementDZ — Projets immobiliers neufs à Alger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+  :root{
+    --ink:#17282b;
+    --ink-2:#4b5a5c;
+    --ink-3:#7d8b8c;
+    --brand:#12b886;
+    --brand-deep:#0e9a70;
+    --brand-wash:#e3f5ee;
+    --amber:#a75e00;
+    --amber-wash:#f8efe0;
+    --paper:#f3f5f2;
+    --surface:#ffffff;
+    --line:#e0e4df;
+    --line-strong:#c9cfc8;
+    --focus:#12b886;
+    --r-card:6px;
+    --r-photo:10px;
+    --r-input:6px;
+    --shadow-float:0 6px 24px rgba(20,40,35,.14);
+    --maxw:1180px;
+    --font-display:'Bricolage Grotesque','Inter',system-ui,sans-serif;
+    --font-text:'Inter',system-ui,-apple-system,sans-serif;
+  }
+
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--font-text);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block}
+  button{font-family:inherit;cursor:pointer}
+  input,select,textarea{font-family:inherit}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  /* ---------- HEADER ---------- */
+  .site-header{
+    position:sticky;top:0;z-index:60;
+    background:var(--surface);
+    border-bottom:1px solid var(--line);
+  }
+  .site-header .wrap{
+    height:64px;display:flex;align-items:center;justify-content:center;
+  }
+  .brand{
+    font-family:var(--font-display);
+    font-weight:800;font-size:21px;letter-spacing:-.02em;
+    color:var(--ink);display:flex;align-items:center;gap:2px;
+  }
+  .brand b{color:var(--brand);font-weight:800}
+  .brand .mark{
+    width:9px;height:9px;border-radius:2px;background:var(--brand);
+    margin-left:5px;transform:translateY(-6px);
+  }
+  .nav{display:flex;align-items:center;gap:6px;justify-self:end}
+  .nav a,.nav button{
+    font-size:14px;font-weight:500;color:var(--ink-2);
+    background:none;border:none;padding:8px 12px;border-radius:var(--r-input);
+  }
+  .nav a:hover,.nav button:hover{background:var(--paper);color:var(--ink)}
+  .nav .cta{
+    background:var(--brand);color:#fff;font-weight:600;padding:9px 16px;
+  }
+  .nav .cta:hover{background:var(--brand-deep);color:#fff}
+
+  .view{display:none}
+  .view.active{display:block}
+
+  /* ---------- HOME / HERO ---------- */
+  .hero{
+    position:relative;
+    width:calc(100% - 48px);
+    max-width:var(--maxw);
+    margin:20px auto 40px;
+    border:1px solid rgba(18,35,61,.07);
+    border-radius:22px;
+    overflow:hidden;
+    background:var(--surface);
+    padding:88px 24px 88px;
+    text-align:center;
+    box-shadow:0 10px 40px rgba(18,35,61,.08), 0 2px 8px rgba(18,35,61,.04);
+  }
+  .hero h1{
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:clamp(32px,4.8vw,52px);
+    line-height:1.06;
+    letter-spacing:-.025em;
+    max-width:20ch;
+    margin:0 auto 16px;
+    color:#12233d;
+  }
+  .hero h1 .hl{color:var(--brand)}
+  .hero p.lede{
+    font-size:16px;color:rgba(18,35,61,.62);max-width:52ch;margin:0 auto 30px;
+  }
+  .hero .wrap{max-width:840px;padding:0}
+  @media(max-width:680px){
+    .hero{width:calc(100% - 24px);margin:12px auto 16px;border-radius:16px}
+  }
+
+  .searchbar{
+    background:#12233d;
+    border:1px solid rgba(18,35,61,.12);
+    border-radius:12px;
+    padding:14px;
+    max-width:760px;
+    margin:0 auto;
+    text-align:left;
+    box-shadow:0 8px 24px rgba(18,35,61,.14);
+  }
+  .seg{
+    display:inline-flex;background:var(--paper);border-radius:999px;padding:3px;margin-bottom:12px;
+  }
+  .seg button{
+    border:none;background:none;font-size:13px;font-weight:600;color:var(--ink-2);
+    padding:7px 16px;border-radius:999px;
+  }
+  .seg button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(20,40,35,.12)}
+  .search-row{display:flex;gap:10px;align-items:stretch}
+  .field{position:relative;flex:1;min-width:0}
+  .field .lab{
+    position:absolute;top:8px;left:14px;font-size:11px;font-weight:600;color:var(--ink-3);
+    letter-spacing:.01em;pointer-events:none;
+  }
+  .field input,.field select{
+    width:100%;height:58px;padding:22px 14px 8px;
+    border:1px solid var(--line-strong);border-radius:var(--r-input);
+    font-size:15px;color:var(--ink);background:var(--surface);appearance:none;
+  }
+  .field select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237d8b8c' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--brand)}
+  .field-search .field-ico{
+    position:absolute;left:16px;top:50%;transform:translateY(-50%);
+    color:var(--ink-3);pointer-events:none;
+  }
+  .field-search input{
+    padding:0 16px 0 44px;
+  }
+  .field-search input::placeholder{color:var(--ink-3);opacity:1}
+  .price-fields{display:flex;gap:10px;flex:1.1}
+  .btn-search{
+    flex-shrink:0;padding:0 26px;height:58px;border:none;border-radius:var(--r-input);
+    background:var(--brand);color:#fff;font-size:15px;font-weight:600;
+  }
+  .btn-search:hover{background:var(--brand-deep)}
+
+  .suggest{
+    position:absolute;left:0;right:0;top:calc(100% + 6px);
+    background:var(--surface);border:1px solid var(--line-strong);border-radius:8px;
+    box-shadow:var(--shadow-float);overflow:hidden;z-index:20;
+  }
+  .suggest div{
+    padding:11px 14px;font-size:14px;display:flex;gap:10px;align-items:center;
+    border-bottom:1px solid var(--line);
+  }
+  .suggest div:last-child{border-bottom:none}
+  .suggest div:hover{background:var(--brand-wash)}
+  .suggest .muted{color:var(--ink-3);font-size:12px}
+  .suggest svg{flex-shrink:0;color:var(--ink-3)}
+
+  .quarters{margin-top:28px}
+  .quarters .qh{font-size:13px;font-weight:600;color:var(--ink-3);margin-bottom:10px}
+  .qchips{display:flex;flex-wrap:wrap;gap:8px}
+  .qchip{
+    font-size:13px;font-weight:500;color:var(--ink-2);
+    background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 14px;
+  }
+  .qchip:hover{border-color:var(--brand);color:var(--brand)}
+
+  /* ---------- HOME sections ---------- */
+  .home-sec{padding:52px 0}
+  .home-sec h2{
+    font-family:var(--font-display);font-weight:700;font-size:24px;letter-spacing:-.02em;
+    margin-bottom:6px;
+  }
+  .home-sec .sub{font-size:14px;color:var(--ink-2);margin-bottom:24px}
+  .feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .feat-grid .card{flex-direction:column}
+  .feat-grid .card-media{width:100%}
+  .feat-grid .card-media img{aspect-ratio:16/11}
+  .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .how{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:22px}
+  .how .n{
+    font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--brand);
+    width:30px;height:30px;border:1px solid var(--brand);border-radius:999px;
+    display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+  }
+  .how h3{font-size:15px;font-weight:600;margin-bottom:5px}
+  .how p{font-size:13px;color:var(--ink-2)}
+
+  /* promoteurs directory */
+  .promo-search{position:relative;width:100%;margin:22px 0 0}
+  .promo-search .ps-ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-3);pointer-events:none}
+  .promo-search input{
+    width:100%;height:44px;padding:0 14px 0 38px;
+    border:1px solid var(--line-strong);border-radius:var(--r-input);
+    font-size:14px;color:var(--ink);background:var(--surface);
+  }
+  .promo-search input:focus{outline:none;border-color:var(--brand)}
+  .promo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:18px}
+  .promo-all-wrap{margin-top:22px;border-top:1px solid var(--line);padding-top:16px}
+  .promo-all-h{font-size:12px;font-weight:600;color:var(--ink-3);margin-bottom:10px}
+  .promo-all{display:flex;flex-wrap:wrap;gap:7px}
+  .promo-chip{
+    font-size:12.5px;font-weight:500;color:var(--ink-2);
+    background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .promo-chip:hover{border-color:var(--brand);color:var(--brand)}
+  .promo-chip span{background:var(--brand-wash);color:var(--brand-deep);font-weight:700;font-size:10.5px;border-radius:999px;padding:1px 6px}
+  .promo-tile{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);
+    padding:18px;text-align:left;transition:border-color .15s ease,transform .15s ease;
+  }
+  .promo-tile:hover{border-color:var(--brand);transform:translateY(-2px)}
+  .promo-badge{
+    width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;margin-bottom:12px;
+  }
+  .promo-name{font-size:14px;font-weight:600;line-height:1.3;color:var(--ink)}
+  .promo-count{font-size:12px;color:var(--ink-3);margin-top:2px}
+  .promo-logo-wrap{height:40px;display:flex;align-items:center;margin-bottom:14px}
+  .promo-logo{max-height:40px;max-width:100%;width:auto;object-fit:contain;object-position:left center}
+  .promo-tile.logo-only .promo-logo-wrap{height:64px;margin-bottom:8px}
+  .promo-tile.logo-only .promo-logo{max-height:64px}
+  .promo-tile.logo-cover{padding:0;overflow:hidden;display:flex}
+  .promo-tile.logo-cover .promo-logo-wrap{flex:1;height:auto;min-height:150px;margin:0;justify-content:center;padding:6px}
+  .promo-tile.logo-cover .promo-logo{width:100%;max-height:130px;object-fit:contain;object-position:center}
+  .promo-tile.logo-cover .promo-name,.promo-tile.logo-cover .promo-count{display:none}
+  .promo-tile.dark{background:#12233d;border-color:#0c1a2e}
+  .promo-tile.dark:hover{border-color:#28486f}
+  .promo-tile.dark .promo-name{color:#fff}
+  .promo-tile.dark .promo-count{color:rgba(255,255,255,.6)}
+  .promo-badge.dark{background:#12233d}
+  .promo-header .promo-badge:has(.promo-logo){width:auto;min-width:64px;padding:0 14px;background:transparent}
+  .promo-header .promo-badge.dark:has(.promo-logo){background:#12233d}
+  .promo-header .promo-logo{max-height:44px;max-width:190px}
+
+  /* conseils */
+  .conseil-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .conseil-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:18px}
+  .conseil-card .ct{font-size:14px;font-weight:600;margin-bottom:6px}
+  .conseil-card .cd{font-size:12.5px;color:var(--ink-2);line-height:1.55}
+
+  /* developer band */
+  .dev-band{
+    background:var(--ink);border-radius:10px;padding:30px 32px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+  }
+  .dev-band h2{font-family:var(--font-display);font-weight:700;font-size:20px;color:#fff;margin-bottom:5px;letter-spacing:-.01em}
+  .dev-band p{font-size:13.5px;color:rgba(255,255,255,.72);max-width:52ch}
+  .dev-band button{
+    flex-shrink:0;background:#fff;color:var(--ink);border:none;border-radius:var(--r-input);
+    padding:13px 24px;font-size:14px;font-weight:600;
+  }
+  .dev-band button:hover{background:var(--brand-wash)}
+
+  /* promoteur page */
+  .promo-page{padding:28px 0 64px}
+  .promo-page .back-link{padding-top:0;margin-bottom:18px}
+  .promo-header{display:flex;gap:18px;align-items:flex-start;padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:26px}
+  .promo-header .promo-badge{width:64px;height:64px;font-size:20px;border-radius:12px;flex-shrink:0;margin:0}
+  .promo-header h1{font-family:var(--font-display);font-weight:800;font-size:24px;letter-spacing:-.02em}
+  .promo-header .ph-tag{font-size:13px;color:var(--ink-3);margin-top:3px}
+  .promo-header .ph-desc{font-size:13.5px;color:var(--ink-2);margin-top:12px;max-width:64ch;line-height:1.6}
+  .promo-header .ph-contact{display:flex;flex-wrap:wrap;gap:18px;margin-top:14px;font-size:13px;color:var(--ink-2)}
+  .promo-header .ph-contact span{display:flex;align-items:center;gap:6px}
+  .promo-projects{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .promo-projects .card,.feat-grid .card,.similar-grid .card{flex-direction:column}
+  .promo-projects .card-media,.feat-grid .card-media,.similar-grid .card-media{width:100%}
+
+  /* ---------- RESULTS ---------- */
+  .filters{
+    position:sticky;top:64px;z-index:50;
+    background:var(--surface);border-bottom:1px solid var(--line);
+  }
+  .filters .wrap{padding-top:12px;padding-bottom:12px}
+  .filter-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .filter-row .ff{position:relative}
+  .filter-row input,.filter-row select{
+    height:40px;border:1px solid var(--line-strong);border-radius:var(--r-input);
+    background:var(--surface);font-size:13.5px;color:var(--ink);padding:0 12px;appearance:none;
+  }
+  .filter-row select{
+    cursor:pointer;padding-right:30px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237d8b8c' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 11px center;
+  }
+  .filter-row input#fLoc{width:210px}
+  .filter-row input:focus,.filter-row select:focus{outline:none;border-color:var(--brand)}
+  .btn-more{
+    height:40px;padding:0 14px;border:1px solid var(--line-strong);border-radius:var(--r-input);
+    background:var(--surface);font-size:13.5px;font-weight:500;color:var(--ink-2);
+  }
+  .btn-more.on{border-color:var(--brand);color:var(--brand);background:var(--brand-wash)}
+  .btn-apply{
+    height:40px;padding:0 20px;border:none;border-radius:var(--r-input);
+    background:var(--brand);color:#fff;font-size:13.5px;font-weight:600;margin-left:auto;
+  }
+  .btn-apply:hover{background:var(--brand-deep)}
+  .more-panel{display:none;padding-top:12px;gap:20px;flex-wrap:wrap}
+  .more-panel.open{display:flex}
+  .more-panel .grp{display:flex;flex-direction:column;gap:7px}
+  .more-panel .grp .glab{font-size:11px;font-weight:600;color:var(--ink-3)}
+  .pills{display:flex;gap:6px}
+  .pill{
+    font-size:12.5px;font-weight:500;color:var(--ink-2);
+    border:1px solid var(--line-strong);background:var(--surface);border-radius:999px;padding:6px 13px;
+  }
+  .pill.on{background:var(--brand-wash);border-color:var(--brand);color:var(--brand-deep)}
+
+  .results-col{max-width:860px;margin:0 auto;padding:24px 24px 40px}
+  .results-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:16px}
+  .results-head h1{font-family:var(--font-display);font-weight:700;font-size:20px;letter-spacing:-.02em}
+  .results-head .count{font-size:13px;color:var(--ink-2);font-weight:400;margin-left:8px}
+  .sort-wrap{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-2);flex-shrink:0}
+  .sort-wrap select{
+    height:34px;border:1px solid var(--line-strong);border-radius:var(--r-input);background:var(--surface);
+    font-size:12.5px;color:var(--ink);padding:0 26px 0 10px;appearance:none;cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237d8b8c' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 9px center;
+  }
+
+  /* listing card */
+  .card{
+    display:flex;gap:0;background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--r-card);overflow:hidden;margin-bottom:16px;
+    transition:border-color .15s ease,transform .15s ease,box-shadow .15s ease;
+  }
+  .card:hover{border-color:var(--line-strong);transform:translateY(-2px);box-shadow:0 8px 22px rgba(20,40,35,.09)}
+  .card.premium{border-color:var(--brand);border-width:1px}
+  .card-media{position:relative;width:280px;flex-shrink:0;background:#0d1b1c}
+  .card-media img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+  .card-media .flag{
+    position:absolute;top:10px;left:10px;font-size:11px;font-weight:600;
+    background:var(--brand);color:#fff;padding:3px 9px;border-radius:4px;letter-spacing:.01em;
+  }
+  .card-media .photocount{
+    position:absolute;bottom:10px;right:10px;font-size:11px;color:#fff;
+    background:rgba(10,20,18,.62);padding:3px 8px;border-radius:999px;display:flex;gap:5px;align-items:center;
+  }
+  .card-save{
+    position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:999px;
+    background:rgba(255,255,255,.92);border:none;display:flex;align-items:center;justify-content:center;color:var(--ink-2);
+  }
+  .card-save:hover{background:#fff}
+  .card-save.saved{color:var(--brand)}
+  .card-body{padding:15px 17px;flex:1;min-width:0;display:flex;flex-direction:column}
+  .card-price{font-family:var(--font-display);font-weight:800;font-size:21px;letter-spacing:-.02em;color:var(--ink)}
+  .card-price .from{font-family:var(--font-text);font-weight:500;font-size:12px;color:var(--ink-3);display:block;letter-spacing:0;margin-bottom:1px}
+  .card-price .sur-demande{font-family:var(--font-text);font-weight:600;font-size:15px;letter-spacing:0;color:var(--brand-deep)}
+  .card-title{font-size:15px;font-weight:600;margin:7px 0 2px}
+  .card-loc{font-size:13px;color:var(--ink-2);display:flex;align-items:center;gap:5px}
+  .card-feat{display:flex;flex-wrap:wrap;gap:14px;margin:11px 0 0;font-size:12.5px;color:var(--ink-2)}
+  .card-feat span{display:flex;align-items:center;gap:5px}
+  .card-feat svg{color:var(--ink-3)}
+  .card-status{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+  .tag{font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:4px}
+  .tag-ready{background:var(--brand-wash);color:var(--brand-deep)}
+  .tag-plan{background:var(--surface);color:var(--amber);border:1px solid #e8d5b5}
+  .tag-credit{background:#eef4f1;color:var(--ink-2)}
+  .card-foot{
+    margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;
+    border-top:1px solid var(--line);margin-top:12px;font-size:12px;color:var(--ink-3);
+  }
+  .card-foot .dev{font-weight:500;color:var(--ink-2)}
+  .card-foot .dev-logo{display:inline-flex;align-items:center;padding:4px 9px;border-radius:5px;background:var(--surface);border:1px solid var(--line)}
+  .card-foot .dev-logo img{height:26px;width:auto;max-width:150px;object-fit:contain;object-position:left center;display:block}
+  .card-foot .dev-logo.dark{border-color:transparent}
+  .card-foot .dev-logo.dark img{height:20px}
+  .type-pills{display:flex;gap:4px}
+  .type-pill{font-size:11px;font-weight:600;color:var(--brand-deep);background:var(--brand-wash);border-radius:4px;padding:2px 7px}
+
+  .no-results{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);
+    padding:44px 24px;text-align:center;
+  }
+  .no-results h3{font-size:16px;font-weight:600;margin:10px 0 6px}
+  .no-results p{font-size:13.5px;color:var(--ink-2)}
+
+  /* map overlay (opened from the Carte button) */
+  .map-overlay{display:none;position:fixed;inset:64px 0 0;z-index:80;background:#e8ece7;overflow:hidden}
+  .map-overlay.show{display:block}
+  .map-inner{position:absolute;inset:0}
+  .map-bg{width:100%;height:100%;object-fit:cover;opacity:.9}
+  .map-pin{
+    position:absolute;transform:translate(-50%,-100%);
+    background:var(--surface);border:1px solid var(--line-strong);
+    font-family:var(--font-display);font-weight:700;font-size:12px;color:var(--ink);
+    padding:4px 9px;border-radius:999px;box-shadow:var(--shadow-float);white-space:nowrap;
+    transition:transform .12s ease,background .12s ease,color .12s ease;
+  }
+  .map-pin::after{
+    content:"";position:absolute;left:50%;bottom:-5px;width:9px;height:9px;
+    background:inherit;border-right:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);
+    transform:translateX(-50%) rotate(45deg);
+  }
+  .map-pin:hover,.map-pin.is-active{
+    background:var(--brand);color:#fff;border-color:var(--brand);z-index:5;transform:translate(-50%,-100%) scale(1.08);
+  }
+  .map-note{
+    position:absolute;left:12px;bottom:12px;font-size:11px;color:var(--ink-2);
+    background:rgba(255,255,255,.9);padding:5px 10px;border-radius:6px;
+  }
+  .map-close{
+    position:absolute;top:16px;right:16px;z-index:6;height:38px;padding:0 16px;
+    background:var(--ink);color:#fff;border:none;border-radius:999px;font-size:13px;font-weight:600;
+    display:flex;align-items:center;gap:7px;box-shadow:var(--shadow-float);
+  }
+  .map-fab{
+    position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:70;
+    display:flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border:none;
+    font-size:13px;font-weight:600;padding:12px 22px;border-radius:999px;box-shadow:var(--shadow-float);
+  }
+  .map-fab:hover{background:#0f1c1e}
+
+  /* ---------- DETAIL ---------- */
+  .detail-top{background:var(--surface);border-bottom:1px solid var(--line)}
+  .back-link{
+    display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-2);
+    background:none;border:none;padding:16px 0;
+  }
+  .back-link:hover{color:var(--ink)}
+  .gallery{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:167px 167px;gap:6px;padding-bottom:20px}
+  .gallery>*{min-width:0;min-height:0}
+  .gallery .g-main{grid-row:1 / span 2;grid-column:1}
+  .gallery img{width:100%;height:100%;object-fit:cover;border-radius:6px;cursor:pointer;display:block}
+  .gallery .g-more{position:relative}
+  .gallery .g-more span{
+    position:absolute;inset:0;background:rgba(10,20,18,.5);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;border-radius:6px;cursor:pointer;
+  }
+  .detail-grid{display:grid;grid-template-columns:1fr 340px;gap:36px;padding:32px 0 64px;align-items:start}
+  .detail-grid.detail-solo{grid-template-columns:1fr;max-width:780px}
+  .detail-main h1{font-family:var(--font-display);font-weight:800;font-size:26px;letter-spacing:-.02em;margin-bottom:4px}
+  .detail-price{font-family:var(--font-display);font-weight:800;font-size:24px;color:var(--brand-deep);margin:14px 0}
+  .detail-loc{font-size:14px;color:var(--ink-2);display:flex;align-items:center;gap:6px}
+  .detail-tags{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0}
+  .key-info{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:1px;background:var(--line);border:1px solid var(--line);
+    border-radius:var(--r-card);overflow:hidden;margin:18px 0;
+  }
+  .key-info .ki{background:var(--surface);padding:12px 15px}
+  .key-info .ki-l{display:block;font-size:11px;color:var(--ink-3);margin-bottom:3px}
+  .key-info .ki-v{font-size:14px;font-weight:600;color:var(--ink)}
+  .key-info .ki-v.is-plan{color:var(--amber)}
+  .key-info .ki-v.is-ready{color:var(--brand-deep)}
+  .btn-wa{
+    display:inline-flex;align-items:center;gap:9px;
+    background:#25d366;color:#0a1f14;font-weight:700;font-size:15px;
+    padding:13px 22px;border-radius:var(--r-input);text-decoration:none;
+    margin:4px 0 8px;
+  }
+  .btn-wa:hover{background:#1fb955}
+  .btn-wa svg{flex-shrink:0}
+  .sec{border-top:1px solid var(--line);padding:22px 0}
+  .sec h2{font-family:var(--font-display);font-weight:700;font-size:17px;letter-spacing:-.01em;margin-bottom:14px}
+  .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .fact{border:1px solid var(--line);border-radius:var(--r-card);padding:12px 14px}
+  .fact .fl{font-size:12px;color:var(--ink-3);margin-bottom:3px}
+  .fact .fv{font-size:14px;font-weight:600}
+  .types-table{width:100%;border-collapse:collapse;border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden}
+  .types-table th{
+    font-size:11px;font-weight:600;color:var(--ink-3);text-align:left;
+    padding:9px 14px;background:var(--paper);border-bottom:1px solid var(--line);
+  }
+  .types-table td{font-size:13.5px;padding:11px 14px;border-bottom:1px solid var(--line)}
+  .types-table tr:last-child td{border-bottom:none}
+  .types-table td.p{font-weight:600;color:var(--brand-deep)}
+  .desc-text{font-size:13.5px;color:var(--ink-2);line-height:1.65;max-width:66ch}
+  .prestations{display:grid;grid-template-columns:repeat(2,1fr);gap:9px 20px}
+  .prestations span{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2)}
+  .prestations svg{color:var(--brand);flex-shrink:0}
+  .liv-box{display:flex;align-items:center;gap:14px;background:var(--amber-wash);border-radius:var(--r-card);padding:14px 16px}
+  .liv-box .liv-ico{width:38px;height:38px;border-radius:9px;background:#fff;display:flex;align-items:center;justify-content:center;color:var(--amber);flex-shrink:0}
+  .liv-box .liv-lab{font-size:12px;color:var(--amber);font-weight:600}
+  .liv-box .liv-date{font-family:var(--font-display);font-weight:700;font-size:17px;color:var(--ink)}
+  .liv-box.ready{background:var(--brand-wash)}
+  .liv-box.ready .liv-ico{color:var(--brand)}
+  .liv-box.ready .liv-lab{color:var(--brand-deep)}
+  .pay-schedule{border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden;margin-bottom:10px}
+  .pay-row{display:flex;justify-content:space-between;font-size:13px;padding:10px 14px;border-bottom:1px solid var(--line)}
+  .pay-row:last-child{border-bottom:none}
+  .pay-row span:first-child{color:var(--ink-2)}
+  .pay-row span:last-child{font-weight:700;font-family:var(--font-display);color:var(--brand-deep)}
+  .pay-note{font-size:12.5px;color:var(--ink-2);line-height:1.6;margin-top:8px}
+  .plans-row{display:flex;gap:10px;flex-wrap:wrap}
+  .plans-row img{width:130px;height:100px;object-fit:cover;border:1px solid var(--line);border-radius:var(--r-card);cursor:pointer}
+
+  .agent-card{
+    position:sticky;top:calc(64px + 20px);
+    background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--r-card);
+    padding:20px;box-shadow:0 1px 0 rgba(20,40,35,.03);
+  }
+  .agent-card .ac-dev{font-size:15px;font-weight:600;margin-bottom:2px}
+  .agent-card .ac-role{font-size:12px;color:var(--ink-3);margin-bottom:16px}
+  .agent-card .ac-line{display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-top:1px solid var(--line)}
+  .agent-card .ac-line span:first-child{color:var(--ink-2)}
+  .btn-primary{
+    width:100%;height:46px;border:none;border-radius:var(--r-input);
+    background:var(--brand);color:#fff;font-size:14px;font-weight:600;margin-top:16px;
+  }
+  .btn-primary:hover{background:var(--brand-deep)}
+  .btn-ghost{
+    width:100%;height:44px;border:1px solid var(--line-strong);border-radius:var(--r-input);
+    background:var(--surface);color:var(--ink);font-size:14px;font-weight:600;margin-top:9px;
+  }
+  .btn-ghost:hover{background:var(--paper)}
+
+  .similar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .similar-grid .card{flex-direction:column}
+  .similar-grid .card-media{width:100%}
+  .similar-grid .card-media img{aspect-ratio:16/11}
+
+  /* ---------- PUBLISH FORM ---------- */
+  .form-page{max-width:720px;margin:0 auto;padding:32px 24px 80px}
+  .form-page h1{font-family:var(--font-display);font-weight:800;font-size:26px;letter-spacing:-.02em;margin-bottom:6px}
+  .form-page .intro{font-size:14px;color:var(--ink-2);margin-bottom:28px}
+  .fsec{margin-bottom:26px}
+  .fsec h2{font-size:14px;font-weight:600;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .ff{display:flex;flex-direction:column;gap:6px}
+  .ff.full{grid-column:span 2}
+  .ff label{font-size:12px;font-weight:600;color:var(--ink-2)}
+  .ff input,.ff select,.ff textarea{
+    height:42px;border:1px solid var(--line-strong);border-radius:var(--r-input);
+    padding:0 12px;font-size:14px;color:var(--ink);background:var(--surface);
+  }
+  .ff textarea{height:auto;min-height:88px;padding:10px 12px;resize:vertical}
+  .ff input:focus,.ff select:focus,.ff textarea:focus{outline:none;border-color:var(--brand)}
+  .checks{display:flex;flex-wrap:wrap;gap:8px}
+  .chk{
+    display:flex;align-items:center;gap:7px;font-size:13px;color:var(--ink-2);
+    border:1px solid var(--line-strong);border-radius:var(--r-input);padding:7px 12px;cursor:pointer;user-select:none;
+  }
+  .chk input{width:15px;height:15px;accent-color:var(--brand)}
+  .drop{
+    border:1.5px dashed var(--line-strong);border-radius:var(--r-card);
+    padding:26px;text-align:center;cursor:pointer;background:var(--surface);
+  }
+  .drop:hover{border-color:var(--brand);background:var(--brand-wash)}
+  .drop .dt{font-size:13.5px;font-weight:600;margin-bottom:3px}
+  .drop .ds{font-size:12px;color:var(--ink-3)}
+  .drop input{display:none}
+  .previews{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .previews .pv{width:78px;height:78px;border-radius:var(--r-input);overflow:hidden;position:relative;border:1px solid var(--line);background:var(--paper);display:flex;align-items:center;justify-content:center;font-size:20px}
+  .previews .pv img{width:100%;height:100%;object-fit:cover}
+  .previews .pv button{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:999px;border:none;background:rgba(10,20,18,.6);color:#fff;font-size:11px;line-height:1;display:flex;align-items:center;justify-content:center}
+  .form-actions{display:flex;gap:10px;margin-top:8px}
+  .form-actions .btn-primary{margin-top:0;width:auto;flex:1}
+  .form-actions .btn-ghost{margin-top:0;width:auto;padding:0 20px}
+  .publish-ok{text-align:center;padding:64px 24px}
+  .publish-ok .ico{width:52px;height:52px;border-radius:999px;background:var(--brand-wash);color:var(--brand);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+  .publish-ok h2{font-family:var(--font-display);font-weight:800;font-size:22px;margin-bottom:8px}
+  .publish-ok p{font-size:14px;color:var(--ink-2);margin-bottom:22px}
+
+  /* ---------- ADMIN ---------- */
+  .admin-login{min-height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;padding:24px}
+  .admin-login .box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:36px;width:100%;max-width:380px}
+  .admin-login h2{font-family:var(--font-display);font-weight:800;font-size:20px;margin-bottom:4px}
+  .admin-login p{font-size:13px;color:var(--ink-2);margin-bottom:20px}
+  .admin-login input{width:100%;height:42px;border:1px solid var(--line-strong);border-radius:var(--r-input);padding:0 12px;font-size:14px;margin-bottom:10px}
+  .admin-login input:focus{outline:none;border-color:var(--brand)}
+  .admin-err{font-size:12px;color:#b42318;margin-bottom:8px;display:none}
+  .admin-bar{background:var(--ink);color:#fff}
+  .admin-bar .wrap{height:56px;display:flex;align-items:center;justify-content:space-between}
+  .admin-bar .brand{color:#fff}
+  .admin-bar .brand b{color:#5fd0b2}
+  .admin-bar .brand .mark{background:#5fd0b2}
+  .admin-bar .badge{font-size:11px;font-weight:600;color:#5fd0b2;border:1px solid rgba(95,208,178,.4);border-radius:999px;padding:3px 10px;margin-left:10px}
+  .admin-bar button{background:none;border:none;color:rgba(255,255,255,.6);font-size:12.5px}
+  .admin-bar button:hover{color:#fff}
+  .admin-body{max-width:960px;margin:0 auto;padding:28px 24px 60px}
+  .admin-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+  .admin-stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:18px;text-align:center}
+  .admin-stat .n{font-family:var(--font-display);font-weight:800;font-size:26px}
+  .admin-stat .l{font-size:12px;color:var(--ink-2);margin-top:2px}
+  .admin-sec-h{font-family:var(--font-display);font-weight:700;font-size:16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:baseline}
+  .admin-sec-h .c{font-size:12.5px;font-weight:400;color:var(--ink-2)}
+  .atable{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden;margin-bottom:30px}
+  .atable th{font-size:11px;font-weight:600;color:var(--ink-3);text-align:left;padding:10px 14px;background:var(--paper);border-bottom:1px solid var(--line)}
+  .atable td{font-size:13px;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+  .atable tr:last-child td{border-bottom:none}
+  .atable tr:hover td{background:var(--paper)}
+  .sb{font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px}
+  .sb-pending{background:var(--amber-wash);color:var(--amber)}
+  .sb-approved{background:var(--brand-wash);color:var(--brand-deep)}
+  .sb-rejected{background:#fdecec;color:#b42318}
+  .arow-actions{display:flex;gap:6px}
+  .arow-actions button{font-size:12px;font-weight:600;padding:5px 11px;border-radius:var(--r-input);border:1px solid var(--line-strong);background:var(--surface)}
+  .arow-actions .ok{border-color:var(--brand);color:var(--brand-deep);background:var(--brand-wash)}
+  .arow-actions .no{border-color:#e7bdbd;color:#b42318;background:#fdecec}
+  .aempty{text-align:center;color:var(--ink-3);font-size:13px;padding:22px}
+
+  /* ---------- MODAL ---------- */
+  .modal-ov{display:none;position:fixed;inset:0;background:rgba(15,25,22,.5);z-index:200;align-items:center;justify-content:center;padding:24px}
+  .modal-ov.open{display:flex}
+  .modal{background:var(--surface);border-radius:10px;padding:26px;max-width:420px;width:100%;box-shadow:var(--shadow-float)}
+  .modal h3{font-family:var(--font-display);font-weight:800;font-size:18px;margin-bottom:3px}
+  .modal .msub{font-size:13px;color:var(--ink-2);margin-bottom:18px}
+  .modal .mf{margin-bottom:12px}
+  .modal .mf label{font-size:12px;font-weight:600;color:var(--ink-2);display:block;margin-bottom:5px}
+  .modal .mf input{width:100%;height:42px;border:1px solid var(--line-strong);border-radius:var(--r-input);padding:0 12px;font-size:14px}
+  .modal .mf input:focus{outline:none;border-color:var(--brand)}
+  .modal-actions{display:flex;gap:9px;margin-top:16px}
+  .modal-actions .btn-primary{margin-top:0;flex:1;width:auto}
+  .modal-actions .btn-ghost{margin-top:0;flex:0 0 auto;width:auto;padding:0 20px}
+  .modal-ok{text-align:center;padding:8px 0}
+  .modal-ok .ico{width:46px;height:46px;border-radius:999px;background:var(--brand-wash);color:var(--brand);display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+  .lightbox{display:none;position:fixed;inset:0;background:rgba(8,14,12,.92);z-index:300;align-items:center;justify-content:center;padding:24px}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:90vw;max-height:86vh;border-radius:8px;object-fit:contain}
+  .lightbox .lb-close{position:absolute;top:18px;right:18px;width:40px;height:40px;border-radius:999px;border:none;background:#fff;font-size:20px;cursor:pointer}
+  .lightbox .lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:999px;border:none;background:rgba(255,255,255,.92);font-size:26px;line-height:1;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .lightbox .lb-nav:hover{background:#fff}
+  .lightbox .lb-prev{left:18px}
+  .lightbox .lb-next{right:18px}
+  .lightbox .lb-count{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#fff;font-size:13px;font-weight:600;background:rgba(0,0,0,.45);padding:5px 12px;border-radius:999px}
+  @media(max-width:680px){.lightbox .lb-nav{width:40px;height:40px;font-size:22px}.lightbox .lb-prev{left:8px}.lightbox .lb-next{right:8px}}
+
+  /* ---------- FOOTER ---------- */
+  .site-footer{background:var(--surface);border-top:1px solid var(--line);padding:40px 0}
+  .site-footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;font-size:12.5px;color:var(--ink-3)}
+  .site-footer .brand{font-size:16px;margin-bottom:6px}
+  .site-footer a{color:var(--ink-2)}
+  .site-footer a:hover{color:var(--brand)}
+  .foot-links{display:flex;gap:26px;flex-wrap:wrap}
+  .foot-links div{display:flex;flex-direction:column;gap:7px}
+
+  /* ---------- ANIM (single deliberate load) ---------- */
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .card.rise{animation:rise .34s ease both}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:1000px){
+    .detail-grid{grid-template-columns:1fr;gap:0}
+    .agent-card{position:static;margin-top:24px}
+    .feat-grid,.similar-grid,.how-grid,.promo-projects{grid-template-columns:1fr 1fr}
+    .promo-grid{grid-template-columns:repeat(3,1fr)}
+    .conseil-grid{grid-template-columns:1fr 1fr}
+    .dev-band{flex-direction:column;align-items:flex-start;gap:16px}
+  }
+  @media(max-width:680px){
+    .wrap{padding:0 16px}
+    .nav a:not(.cta){display:none}
+    .search-row{flex-direction:column}
+    .price-fields{flex-direction:column}
+    .btn-search{height:50px}
+    .hero{padding:44px 16px 40px}
+    .hero h1{font-size:clamp(26px,7vw,34px)}
+    .home-sec{padding:30px 0}
+    .home-sec:first-child{padding-top:8px}
+    .results-col{padding:18px 16px 32px}
+    .results-head{flex-direction:column;align-items:stretch;gap:10px}
+    .results-head h1{font-size:18px}
+    .sort-wrap{justify-content:space-between}
+    .sort-wrap select{flex:1}
+    .card{flex-direction:column}
+    .card-media{width:100%}
+    .card-media img{aspect-ratio:16/10}
+    .gallery{grid-template-columns:1fr 1fr;grid-auto-rows:120px}
+    .gallery .g-main{grid-column:span 2}
+    .fgrid{grid-template-columns:1fr}
+    .ff.full{grid-column:span 1}
+    .facts{grid-template-columns:1fr}
+    .feat-grid,.similar-grid,.how-grid,.promo-projects{grid-template-columns:1fr}
+    .promo-grid{grid-template-columns:1fr 1fr}
+    .conseil-grid{grid-template-columns:1fr}
+    .promo-header{flex-direction:column}
+    .admin-stats{grid-template-columns:1fr}
+    .prestations{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="wrap">
+    <a class="brand" href="#" onclick="showView('home');return false;">logement<b>DZ</b><span class="mark"></span></a>
+  </div>
+</header>
+
+<!-- ============ HOME ============ -->
+<section class="view active" id="view-home">
+  <div class="hero">
+    <div class="wrap">
+      <h1>Vous êtes au <span class="hl">bon</span> endroit</h1>
+      <p class="lede">Comparez différents projets immobiliers à Alger et trouvez celui qui vous correspond le mieux.</p>
+
+      <div class="searchbar">
+        <div class="search-row">
+          <div class="field field-search">
+            <svg class="field-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <input type="text" id="heroInput" autocomplete="off" placeholder="Quartier ou commune"
+              onkeydown="if(event.key==='Enter')heroGo()" />
+          </div>
+          <button class="btn-search" onclick="heroGo()">Rechercher</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section class="home-sec" id="promoteurs">
+      <h2>Promoteurs</h2>
+      <div class="promo-grid" id="promoGrid"></div>
+      <div class="promo-search">
+        <svg class="ps-ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" id="promoSearch" autocomplete="off" placeholder="Rechercher un autre promoteur…"
+          oninput="promoSuggest(this.value)" onkeydown="if(event.key==='Enter'){const b=document.querySelector('#promoSuggest div');if(b)b.click();}" />
+        <div class="suggest" id="promoSuggest" hidden></div>
+      </div>
+      <div id="promoAll" hidden></div>
+    </section>
+
+    <section class="home-sec" id="featSection">
+      <h2>Projets à la une</h2>
+      <div class="feat-grid" id="featGrid"></div>
+    </section>
+
+    <section class="home-sec" id="how">
+      <h2>Comment ça marche</h2>
+      <div class="sub">Acheter neuf, sans passer par des dizaines d'agences.</div>
+      <div class="how-grid">
+        <div class="how"><div class="n">1</div><h3>Cherchez par quartier</h3><p>Filtrez par budget, type d'appartement, disponibilité et délai de livraison.</p></div>
+        <div class="how"><div class="n">2</div><h3>Comparez les projets</h3><p>Prix au départ, surfaces, plans, crédit bancaire accepté et calendrier de livraison.</p></div>
+        <div class="how"><div class="n">3</div><h3>Contactez le promoteur</h3><p>Une demande directe, sans intermédiaire. Le promoteur vous rappelle sous 24 h.</p></div>
+      </div>
+    </section>
+
+    <section class="home-sec">
+      <h2>Conseils</h2>
+      <div class="sub">L'essentiel à savoir avant d'acheter un logement neuf en Algérie.</div>
+      <div class="conseil-grid">
+        <div class="conseil-card"><div class="ct">Acheter sur plan (VEFA)</div><div class="cd">Ce que garantit le contrat de vente en l'état futur d'achèvement et comment les paiements sont échelonnés selon l'avancement des travaux.</div></div>
+        <div class="conseil-card"><div class="ct">Le crédit bancaire immobilier</div><div class="cd">Les banques qui financent le neuf en Algérie, le taux, l'apport demandé et les pièces à réunir pour constituer un dossier.</div></div>
+        <div class="conseil-card"><div class="ct">Vérifier un promoteur</div><div class="cd">Permis de construire, agrément, livraisons passées et garanties : les points à contrôler avant de signer une réservation.</div></div>
+        <div class="conseil-card"><div class="ct">Frais et taxes à l'achat</div><div class="cd">Droits d'enregistrement, frais de notaire, taxe de publicité foncière et charges de copropriété à prévoir dans votre budget.</div></div>
+      </div>
+    </section>
+
+    <section class="home-sec">
+      <div class="dev-band">
+        <div>
+          <h2>Vous êtes promoteur ?</h2>
+          <p>Publiez votre projet sur logementDZ et recevez les demandes des acheteurs directement, sans commission.</p>
+        </div>
+        <button onclick="showView('publish')">Publier un projet</button>
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- ============ RESULTS ============ -->
+<section class="view" id="view-results">
+  <div class="filters">
+    <div class="wrap">
+      <div class="filter-row">
+        <div class="ff">
+          <input type="text" id="fLoc" autocomplete="off" placeholder="Quartier ou commune"
+            oninput="filterSuggest(this.value)" onkeydown="if(event.key==='Enter')runSearch()" />
+          <div class="suggest" id="filterSuggest" hidden style="width:260px"></div>
+        </div>
+        <select id="fPriceMin">
+          <option value="0">Prix min</option>
+          <option value="5000000">5 M</option>
+          <option value="8000000">8 M</option>
+          <option value="12000000">12 M</option>
+          <option value="16000000">16 M</option>
+          <option value="20000000">20 M</option>
+        </select>
+        <select id="fPriceMax">
+          <option value="999999999">Prix max</option>
+          <option value="10000000">10 M</option>
+          <option value="15000000">15 M</option>
+          <option value="20000000">20 M</option>
+          <option value="30000000">30 M</option>
+          <option value="999999999">Sans limite</option>
+        </select>
+        <select id="fType">
+          <option value="any">Tous types</option>
+          <option value="F2">F2</option>
+          <option value="F3">F3</option>
+          <option value="F4">F4</option>
+          <option value="F5">F5</option>
+        </select>
+        <select id="fStatus">
+          <option value="any">Disponibilité</option>
+          <option value="pret">Prêt à habiter</option>
+          <option value="plan">Sur plan (VEFA)</option>
+        </select>
+        <button class="btn-more" id="btnMore" onclick="toggleMore()">Plus de filtres</button>
+        <button class="btn-apply" onclick="runSearch()">Rechercher</button>
+      </div>
+      <div class="more-panel" id="morePanel">
+        <div class="grp">
+          <span class="glab">Parking sous-sol</span>
+          <div class="pills" id="pillsParking">
+            <button class="pill on" data-v="any" onclick="setPill(this,'parking')">Peu importe</button>
+            <button class="pill" data-v="oui" onclick="setPill(this,'parking')">Oui</button>
+            <button class="pill" data-v="non" onclick="setPill(this,'parking')">Non</button>
+          </div>
+        </div>
+        <div class="grp">
+          <span class="glab">Crédit bancaire</span>
+          <div class="pills" id="pillsCredit">
+            <button class="pill on" data-v="any" onclick="setPill(this,'credit')">Peu importe</button>
+            <button class="pill" data-v="oui" onclick="setPill(this,'credit')">Accepté</button>
+          </div>
+        </div>
+        <div class="grp">
+          <span class="glab">Délai de livraison max</span>
+          <div class="pills" id="pillsDelai">
+            <button class="pill on" data-v="0" onclick="setPill(this,'delai')">Peu importe</button>
+            <button class="pill" data-v="12" onclick="setPill(this,'delai')">12 mois</button>
+            <button class="pill" data-v="24" onclick="setPill(this,'delai')">24 mois</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="results-col">
+    <div class="results-head">
+      <div>
+        <h1 id="resTitle">Projets à Alger</h1>
+        <span class="count" id="resCount"></span>
+      </div>
+      <div class="sort-wrap">
+        <label for="fSort">Trier&nbsp;:</label>
+        <select id="fSort" onchange="renderResults()">
+          <option value="recent">Plus récents</option>
+          <option value="price-asc">Prix croissant</option>
+          <option value="price-desc">Prix décroissant</option>
+          <option value="delai">Livraison la plus proche</option>
+        </select>
+      </div>
+    </div>
+    <div id="resultsList"></div>
+  </div>
+
+  <button class="map-fab" id="mapFab" onclick="toggleMap()">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3L3 6v15l6-3 6 3 6-3V3l-6 3-6-3z"/><path d="M9 3v15M15 6v15"/></svg>
+    Carte
+  </button>
+
+  <div class="map-overlay" id="mapOverlay">
+    <div class="map-inner">
+      <svg class="map-bg" viewBox="0 0 440 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="440" height="700" fill="#e8ece7"/>
+        <path d="M0 210 Q160 170 300 250 T440 300 L440 0 L0 0 Z" fill="#dde8f0"/>
+        <path d="M0 205 Q160 165 300 245 T440 295" fill="none" stroke="#b9cdd6" stroke-width="2"/>
+        <g stroke="#cdd4cb" stroke-width="6" fill="none" stroke-linecap="round">
+          <path d="M40 700 L120 420 L180 300 L250 150"/>
+          <path d="M420 680 L360 460 L300 320 L280 200"/>
+          <path d="M0 500 L180 470 L300 430 L440 450"/>
+          <path d="M20 360 L200 340 L440 380"/>
+          <path d="M120 700 L200 520 L260 360 L340 220"/>
+        </g>
+        <g stroke="#dbe0d8" stroke-width="2" fill="none">
+          <path d="M0 600 L440 560"/><path d="M0 640 L440 610"/>
+          <path d="M60 700 L140 300"/><path d="M240 700 L300 340"/>
+        </g>
+      </svg>
+      <div id="mapPins"></div>
+      <div class="map-note">Emplacements approximatifs</div>
+      <button class="map-close" onclick="toggleMap()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        Liste
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DETAIL ============ -->
+<section class="view" id="view-detail">
+  <div class="detail-top">
+    <div class="wrap">
+      <button class="back-link" onclick="goResults(state.loc||'ALL')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        Retour aux résultats
+      </button>
+      <div id="detailGallery"></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div id="detailContent"></div>
+  </div>
+</section>
+
+<!-- ============ PROMOTEUR ============ -->
+<section class="view" id="view-promoteur">
+  <div class="wrap">
+    <div class="promo-page">
+      <button class="back-link" onclick="showView('home');scrollToId('promoteurs')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        Tous les promoteurs
+      </button>
+      <div id="promoteurContent"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLISH ============ -->
+<section class="view" id="view-publish">
+  <div id="publishForm">
+    <div class="form-page">
+      <button class="back-link" onclick="showView('home')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        Retour à l'accueil
+      </button>
+      <h1>Publier un projet</h1>
+      <p class="intro">Espace promoteur. Votre projet est vérifié par notre équipe puis mis en ligne sous 24 h.</p>
+
+      <div class="fsec">
+        <h2>Informations du projet</h2>
+        <div class="fgrid">
+          <div class="ff full"><label>Nom du projet *</label><input type="text" id="s_nom" placeholder="Résidence Les Oliviers" /></div>
+          <div class="ff"><label>Quartier *</label>
+            <select id="s_quartier"><option value="">Sélectionner…</option></select>
+          </div>
+          <div class="ff"><label>Adresse</label><input type="text" id="s_adresse" placeholder="Lot 12, Route de Hydra" /></div>
+          <div class="ff"><label>Nombre d'étages *</label><input type="number" id="s_etages" min="1" max="60" placeholder="8" /></div>
+          <div class="ff"><label>Nombre d'unités *</label><input type="number" id="s_unites" min="1" placeholder="48" /></div>
+          <div class="ff"><label>Disponibilité *</label>
+            <select id="s_dispo"><option value="">Sélectionner…</option><option value="pret">Prêt à habiter</option><option value="plan">Sur plan (VEFA)</option></select>
+          </div>
+          <div class="ff"><label>Livraison prévue</label><input type="month" id="s_livraison" /></div>
+          <div class="ff full"><label>Description</label><textarea id="s_desc" placeholder="Points forts du projet, environnement, prestations…"></textarea></div>
+        </div>
+      </div>
+
+      <div class="fsec">
+        <h2>Types et prix</h2>
+        <div class="fgrid">
+          <div class="ff full"><label>Types disponibles</label>
+            <div class="checks">
+              <label class="chk"><input type="checkbox" value="F2" class="s_type" />F2</label>
+              <label class="chk"><input type="checkbox" value="F3" class="s_type" />F3</label>
+              <label class="chk"><input type="checkbox" value="F4" class="s_type" />F4</label>
+              <label class="chk"><input type="checkbox" value="F5" class="s_type" />F5</label>
+              <label class="chk"><input type="checkbox" value="F6+" class="s_type" />F6 et +</label>
+            </div>
+          </div>
+          <div class="ff"><label>Prix de départ (DA) *</label><input type="number" id="s_prix" placeholder="12000000" /></div>
+          <div class="ff"><label>Prix maximum (DA)</label><input type="number" id="s_prixmax" placeholder="22000000" /></div>
+          <div class="ff full"><label>Prestations</label>
+            <div class="checks">
+              <label class="chk"><input type="checkbox" id="s_credit" />Crédit bancaire accepté</label>
+              <label class="chk"><input type="checkbox" id="s_parking" />Parking sous-sol</label>
+              <label class="chk"><input type="checkbox" id="s_ascenseur" />Ascenseur</label>
+              <label class="chk"><input type="checkbox" id="s_gardien" />Gardiennage 24 h</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fsec">
+        <h2>Photos du projet</h2>
+        <div class="drop" onclick="document.getElementById('upPhotos').click()">
+          <div class="dt">Ajouter des photos</div>
+          <div class="ds">JPG ou PNG — 10 photos maximum</div>
+          <input type="file" id="upPhotos" multiple accept="image/*" onchange="previewFiles(this,'pvPhotos')" />
+        </div>
+        <div class="previews" id="pvPhotos"></div>
+      </div>
+
+      <div class="fsec">
+        <h2>Plans</h2>
+        <div class="drop" onclick="document.getElementById('upPlans').click()">
+          <div class="dt">Ajouter les plans</div>
+          <div class="ds">Plans d'étage, façades — JPG, PNG ou PDF</div>
+          <input type="file" id="upPlans" multiple accept="image/*,.pdf" onchange="previewFiles(this,'pvPlans')" />
+        </div>
+        <div class="previews" id="pvPlans"></div>
+      </div>
+
+      <div class="fsec">
+        <h2>Vos coordonnées</h2>
+        <div class="fgrid">
+          <div class="ff"><label>Promoteur / société *</label><input type="text" id="s_societe" placeholder="SARL Immobilier Alger" /></div>
+          <div class="ff"><label>Téléphone *</label><input type="tel" id="s_tel" placeholder="05 XX XX XX XX" /></div>
+          <div class="ff full"><label>Email</label><input type="email" id="s_email" placeholder="contact@promoteur.dz" /></div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-ghost" onclick="showView('home')">Annuler</button>
+        <button class="btn-primary" onclick="submitProjet()">Publier le projet</button>
+      </div>
+    </div>
+  </div>
+  <div id="publishOk" hidden>
+    <div class="publish-ok">
+      <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <h2>Projet soumis</h2>
+      <p>Votre projet sera visible après validation par notre équipe, sous 24 h.</p>
+      <button class="btn-primary" style="max-width:260px;margin:0 auto" onclick="showView('home')">Retour à l'accueil</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ADMIN LOGIN ============ -->
+<section class="view" id="view-adminLogin">
+  <div class="admin-login">
+    <div class="box">
+      <h2>Espace administration</h2>
+      <p>Accès réservé à l'équipe logementDZ.</p>
+      <input type="text" id="adminUser" placeholder="Identifiant" />
+      <input type="password" id="adminPass" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')adminLogin()" />
+      <div class="admin-err" id="adminErr">Identifiant ou mot de passe incorrect.</div>
+      <button class="btn-primary" style="margin-top:6px" onclick="adminLogin()">Se connecter</button>
+      <button class="btn-ghost" onclick="showView('home')">Retour à l'accueil</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ADMIN DASHBOARD ============ -->
+<section class="view" id="view-admin">
+  <div class="admin-bar">
+    <div class="wrap">
+      <span class="brand">logement<b>DZ</b><span class="mark"></span><span class="badge">Admin</span></span>
+      <button onclick="showView('home')">Déconnexion</button>
+    </div>
+  </div>
+  <div class="admin-body">
+    <div class="admin-stats" id="adminStats"></div>
+    <div class="admin-sec-h"><span>En attente de validation</span><span class="c" id="pendingCount"></span></div>
+    <table class="atable"><thead><tr><th>Projet</th><th>Quartier</th><th>Promoteur</th><th>Prix départ</th><th>Statut</th><th>Actions</th></tr></thead><tbody id="pendingBody"></tbody></table>
+    <div class="admin-sec-h"><span>Projets approuvés</span><span class="c" id="approvedCount"></span></div>
+    <table class="atable"><thead><tr><th>Projet</th><th>Quartier</th><th>Promoteur</th><th>Prix départ</th><th>Statut</th><th>Actions</th></tr></thead><tbody id="approvedBody"></tbody></table>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer" id="siteFooter">
+  <div class="wrap">
+    <div>
+      <div class="brand">logement<b>DZ</b><span class="mark"></span></div>
+      <div>Tous les projets immobiliers neufs de la wilaya d'Alger.</div>
+      <div style="margin-top:8px">© 2026 logementDZ</div>
+    </div>
+    <div class="foot-links">
+      <div>
+        <a href="#" onclick="goResults('ALL');return false;">Acheter</a>
+        <a href="#" onclick="showView('publish');return false;">Publier un projet</a>
+        <a href="#" onclick="showView('home');scrollToId('how');return false;">Comment ça marche</a>
+      </div>
+      <div>
+        <a href="#" onclick="return false;">Mentions légales</a>
+        <a href="#" onclick="return false;">Confidentialité</a>
+        <a href="#" onclick="showView('adminLogin');return false;">Espace pro</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ MODALS ============ -->
+<div class="modal-ov" id="contactModal">
+  <div class="modal">
+    <div id="contactBody">
+      <h3>Contacter le promoteur</h3>
+      <div class="msub" id="contactSub"></div>
+      <div class="mf"><label>Nom complet</label><input type="text" id="c_nom" placeholder="Nom et prénom" /></div>
+      <div class="mf"><label>Téléphone</label><input type="tel" id="c_tel" placeholder="05 XX XX XX XX" /></div>
+      <div class="mf"><label>Type recherché</label><input type="text" id="c_type" placeholder="F3, F4…" /></div>
+      <div class="modal-actions">
+        <button class="btn-primary" onclick="submitContact()">Envoyer la demande</button>
+        <button class="btn-ghost" onclick="closeModal()">Annuler</button>
+      </div>
+    </div>
+    <div id="contactOk" hidden>
+      <div class="modal-ok">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <h3>Demande envoyée</h3>
+        <p class="msub" style="margin:6px 0 0">Le promoteur vous rappellera sous 24 h.</p>
+        <button class="btn-primary" onclick="closeModal()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lb-close" onclick="event.stopPropagation();closeLightbox()">&times;</button>
+  <button class="lb-nav lb-prev" onclick="event.stopPropagation();lightboxStep(-1)" aria-label="Précédente">&#8249;</button>
+  <img id="lightboxImg" src="" alt="" onclick="event.stopPropagation()" />
+  <button class="lb-nav lb-next" onclick="event.stopPropagation();lightboxStep(1)" aria-label="Suivante">&#8250;</button>
+  <div class="lb-count" id="lightboxCount"></div>
+</div>
+
+<script>
+/* =================== DATA =================== */
+const QUARTIERS = [
+  {name:'Aïn Benian',cp:'16018'},
+  {name:'Aïn Naâdja',cp:'16065'},
+  {name:'Aïn Taya',cp:'16019'},
+  {name:'Alger Centre',cp:'16000'},
+  {name:'Bab El Oued',cp:'16008'},
+  {name:'Bab Ezzouar',cp:'16079'},
+  {name:'Baba Hassen',cp:'16081'},
+  {name:'Bachdjerrah',cp:'16026'},
+  {name:'Baraki',cp:'16027'},
+  {name:'Ben Aknoun',cp:'16043'},
+  {name:'Ben Omar',cp:'16006'},
+  {name:'Beni Messous',cp:'16044'},
+  {name:'Bir Mourad Raïs',cp:'16013'},
+  {name:'Birkhadem',cp:'16029'},
+  {name:'Birtouta',cp:'16045'},
+  {name:'Bologhine',cp:'16030'},
+  {name:'Bordj El Bahri',cp:'16103'},
+  {name:'Bordj El Kiffan',cp:'16087'},
+  {name:'Bouchaoui',cp:'16084'},
+  {name:'Bourouba',cp:'16162'},
+  {name:'Bouzaréah',cp:'16032'},
+  {name:'Casbah',cp:'16001'},
+  {name:'Chéraga',cp:'16014'},
+  {name:'Chevalley',cp:'16003'},
+  {name:'Dar El Beïda',cp:'16129'},
+  {name:'Dély Ibrahim',cp:'16047'},
+  {name:'Dergana',cp:'16087'},
+  {name:'Douéra',cp:'16049'},
+  {name:'Draria',cp:'16050'},
+  {name:'El Achour',cp:'16104'},
+  {name:'El Biar',cp:'16003'},
+  {name:'El Hamiz',cp:'16211'},
+  {name:'El Harrach',cp:'16004'},
+  {name:'El Madania',cp:'16015'},
+  {name:'El Magharia',cp:'16053'},
+  {name:'El Marsa',cp:'16205'},
+  {name:'El Mouradia',cp:'16035'},
+  {name:'Garidi',cp:'16006'},
+  {name:'Gué de Constantine',cp:'16048'},
+  {name:'Hammamet',cp:'16082'},
+  {name:'Heraoua',cp:'16116'},
+  {name:'Hussein Dey',cp:'16136'},
+  {name:'Hydra',cp:'16016'},
+  {name:'Khraïcia',cp:'16091'},
+  {name:'Kouba',cp:'16006'},
+  {name:'Les Eucalyptus',cp:'16057'},
+  {name:'Les Sources',cp:'16075'},
+  {name:'Mahelma',cp:'16093'},
+  {name:'Mohammadia',cp:'16058'},
+  {name:'Mohammed Belouizdad',cp:'16151'},
+  {name:'Oued Koriche',cp:'16182'},
+  {name:'Oued Romane',cp:'16106'},
+  {name:'Oued Smar',cp:'16059'},
+  {name:'Ouled Chebel',cp:'16118'},
+  {name:'Ouled Fayet',cp:'16094'},
+  {name:'Rahmania',cp:'16121'},
+  {name:'Raïs Hamidou',cp:'16060'},
+  {name:'Réghaïa',cp:'16036'},
+  {name:'Rouiba',cp:'16174'},
+  {name:'Ruisseau',cp:'16151'},
+  {name:'Sacré-Cœur',cp:'16000'},
+  {name:'Saïd Hamdine',cp:'16078'},
+  {name:'Saoula',cp:'16059'},
+  {name:'Sidi M\'Hamed',cp:'16002'},
+  {name:'Sidi Moussa',cp:'16189'},
+  {name:'Souidania',cp:'16097'},
+  {name:'Staouéli',cp:'16062'},
+  {name:'Tessala El Merdja',cp:'16099'},
+  {name:'Val d\'Hydra',cp:'16016'},
+  {name:'Zeralda',cp:'16063'}
+
+];
+
+const IMG = n => 'https://images.unsplash.com/photo-' + n + '?w=900&q=80&auto=format&fit=crop';
+const PLAN = n => 'https://images.unsplash.com/photo-' + n + '?w=700&q=80&auto=format&fit=crop';
+
+let PROJETS = [];
+
+const PROJET_EXTRA = {
+};
+
+let PROMOTEURS = [];
+/* =================== SUPABASE (CMS) =================== */
+const SB_URL = 'https://afuwdsxqhplidjkatjpf.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmdXdkc3hxaHBsaWRqa2F0anBmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5NzE0NTcsImV4cCI6MjEwNDU0NzQ1N30.aEJBeWzXRxzKsqDDwfPatFMPyG7N92LuozkVC0zLFuI';
+async function sbGet(pathq){
+  const r = await fetch(SB_URL + '/rest/v1/' + pathq, { headers:{ apikey:SB_KEY, Authorization:'Bearer '+SB_KEY } });
+  if(!r.ok) throw new Error('Supabase '+r.status+' — '+pathq);
+  return r.json();
+}
+function mapPromoteur(row){
+  return {
+    id: row.slug, name: row.nom, ville: row.ville || '', tag: row.tag || '', desc: row.description || '',
+    tel: row.telephone || '', whatsapp: row.whatsapp || '', email: row.email || '', url: row.site || '',
+    logo: row.logo_url || null, accent: row.accent || '#12233d', bg: row.bg || null,
+    cover: !!row.cover, dark: !!row.dark, hideName: !!row.hide_name,
+    zoom: row.logo_zoom || null, dir: !!row.annuaire
+  };
+}
+function fdate(d){ if(!d) return ''; const p = String(d).slice(0,10).split('-'); return p.length===3 ? p[2]+'/'+p[1]+'/'+p[0] : d; }
+function mapProjet(row){
+  const media = row.media || [];
+  return {
+    nom: row.nom, quartier: row.quartier, adresse: row.adresse || null, description: row.description || '',
+    prixMin: row.prix_min, prixMax: row.prix_max, prixSurDemande: !!row.prix_sur_demande, prixM2: row.prix_m2 || null,
+    taille: row.taille || 'moyen', unites: row.unites, etages: row.etages, ascenseurs: row.ascenseurs,
+    parking: row.parking === true ? 'oui' : 'non',
+    dispo: row.statut, livraisonMois: row.livraison_mois || 0, livraisonDate: row.livraison_date || '',
+    avancement: row.avancement || null, credit: (row.credit === true || row.credit === false) ? row.credit : null,
+    premium: !!row.a_la_une, ajoute: fdate(row.date_ajout),
+    dev: row.promoteur ? row.promoteur.nom : '',
+    coords: { x: (row.map_x==null?50:row.map_x), y: (row.map_y==null?50:row.map_y) },
+    photos: media.filter(m=>m.kind==='photo').map(m=>({url:m.url})),
+    plans: media.filter(m=>m.kind==='plan').map(m=>m.url),
+    f: (row.types||[]).map(t=>({ n:t.type, s:(t.surface||'—'), p:(t.prix||null) })),
+    prestations: row.prestations || []
+  };
+}
+async function bootstrap(){
+  try{
+    const [proms, projs] = await Promise.all([
+      sbGet('promoteurs?select=*&order=ordre.asc,nom.asc'),
+      sbGet('projets_full?select=*&order=date_ajout.desc,id.asc')
+    ]);
+    PROMOTEURS = proms.map(mapPromoteur);
+    PROJETS = projs.map(mapProjet);
+  }catch(e){
+    console.error(e);
+    const w = document.querySelector('#view-home .wrap');
+    if(w) w.insertAdjacentHTML('afterbegin',
+      '<div style="background:#fdecec;color:#b42318;border:1px solid #e7bdbd;border-radius:8px;padding:12px 16px;margin:16px 0;font-size:13px">Impossible de charger les données pour le moment. Réessayez plus tard.</div>');
+  }
+  renderHome();
+}
+
+function promoInitials(name){
+  return name.split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+}
+function promoProjectCount(name){
+  return [...PROJETS, ...approvedAsProjets()].filter(p=>p.dev===name).length;
+}
+
+/* =================== ICONS =================== */
+const IC = {
+  pin:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+  floors:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M6 21V7l6-4 6 4v14M10 12h4M10 16h4"/></svg>',
+  units:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg>',
+  parking:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7h4a3 3 0 010 6H9"/></svg>',
+  lift:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M10 9l2-2 2 2M10 15l2 2 2-2"/></svg>',
+  camera:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>',
+  heart:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 00-7.8 7.8l1.1 1.1L12 21l7.7-7.5 1.1-1.1a5.5 5.5 0 000-7.8z"/></svg>',
+  phone:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.1-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.5 2.8.6a2 2 0 011.7 2z"/></svg>',
+  mail:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg>',
+  calendar:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
+  check:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>',
+  heartFill:'<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 00-7.8 7.8l1.1 1.1L12 21l7.7-7.5 1.1-1.1a5.5 5.5 0 000-7.8z"/></svg>',
+  whatsapp:'<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35zM12.05 21.5h-.01a9.4 9.4 0 01-4.8-1.32l-.34-.2-3.57.94.95-3.48-.22-.36a9.4 9.4 0 01-1.44-5.02c0-5.19 4.23-9.42 9.43-9.42 2.52 0 4.88.98 6.66 2.76a9.35 9.35 0 012.75 6.67c0 5.19-4.23 9.42-9.42 9.42zm8.02-17.44A11.32 11.32 0 0012.05.5C5.79.5.7 5.59.7 11.85c0 2.01.53 3.97 1.53 5.7L.6 23.5l6.1-1.6a11.34 11.34 0 005.35 1.36h.01c6.26 0 11.35-5.09 11.35-11.35 0-3.03-1.18-5.88-3.32-8.02z"/></svg>',
+};
+
+/* =================== STATE =================== */
+const state = {
+  status:'ALL', loc:'', priceMin:0, priceMax:999999999,
+  type:'any', parking:'any', credit:'any', delai:0,
+  saved:new Set(),
+};
+try{ const s=JSON.parse(localStorage.getItem('ldz_saved')||'[]'); s.forEach(x=>state.saved.add(x)); }catch(e){}
+function persistSaved(){ try{ localStorage.setItem('ldz_saved',JSON.stringify([...state.saved])); }catch(e){} }
+
+const norm = s => (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+const canonQuartier = s => { const n=norm(s); const q=QUARTIERS.find(x=>norm(x.name)===n); return q ? q.name : s; };
+const fmt = n => (n||0).toLocaleString('fr-FR') + ' DA';
+const fmtShort = n => n>=1000000 ? (n/1000000).toLocaleString('fr-FR',{maximumFractionDigits:1})+' M' : n.toLocaleString('fr-FR');
+
+/* =================== NAV =================== */
+function showView(name){
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active', v.id==='view-'+name));
+  const adminMode = (name==='admin');
+  document.getElementById('siteHeader').style.display = adminMode ? 'none':'';
+  document.getElementById('siteFooter').style.display = (adminMode||name==='adminLogin') ? 'none':'';
+  if(name!=='results'){
+    document.getElementById('mapOverlay').classList.remove('show');
+    document.getElementById('mapFab').style.display='';
+    document.body.style.overflow='';
+  }
+  window.scrollTo({top:0});
+}
+function scrollToId(id){ const el=document.getElementById(id); if(el) setTimeout(()=>el.scrollIntoView({behavior:'smooth'}),60); }
+
+/* =================== HOME =================== */
+function renderHome(){
+  renderPromoteurs();
+  const feat = [...PROJETS].filter(p=>p.premium).slice(0,4);
+  document.getElementById('featGrid').innerHTML = feat.map(p=>cardHTML(p,true)).join('');
+  document.getElementById('featSection').hidden = feat.length===0;
+  populateQuartierSelect();
+}
+
+function renderPromoteurs(){
+  document.getElementById('promoGrid').innerHTML = PROMOTEURS.filter(pr=>!pr.dir).map(pr=>{
+    const n = promoProjectCount(pr.name);
+    const mark = pr.logo
+      ? `<img class="promo-logo" src="${pr.logo}" alt="${pr.name}" loading="lazy"${pr.zoom?` style="transform:scale(${pr.zoom})"`:''} />`
+      : `<div class="promo-badge" style="background:${pr.accent}1a;color:${pr.accent}">${promoInitials(pr.name)}</div>`;
+    const cls = ['promo-tile'];
+    if(pr.dark) cls.push('dark');
+    if(pr.cover) cls.push('logo-cover');
+    else if(pr.hideName) cls.push('logo-only');
+    return `<button class="${cls.join(' ')}" ${pr.bg?`style="background:${pr.bg}"`:''} onclick="openPromoteur('${pr.id}')">
+      <div class="promo-logo-wrap">${mark}</div>
+      ${(pr.hideName||pr.cover)?'':`<div class="promo-name">${pr.name}</div>`}
+      <div class="promo-count">${n} projet${n>1?'s':''}</div>
+    </button>`;
+  }).join('');
+}
+function promoSuggest(val){
+  const box = document.getElementById('promoSuggest');
+  const v = norm(val);
+  if(!v){ box.hidden = true; return; }
+  const m = PROMOTEURS.filter(pr=>norm(pr.name).includes(v)).sort((a,b)=>a.name.localeCompare(b.name,'fr')).slice(0,10);
+  box.innerHTML = m.length
+    ? m.map(pr=>{const n=promoProjectCount(pr.name); return `<div onclick="pickPromo('${pr.id}')">${IC.pin}<span>${pr.name}${pr.ville?` <span class="muted">${pr.ville}</span>`:''}${n?` <span class="muted">· ${n} projet${n>1?'s':''}</span>`:''}</span></div>`;}).join('')
+    : `<div class="muted" style="padding:11px 14px">Aucun promoteur trouvé</div>`;
+  box.hidden = false;
+}
+function pickPromo(id){
+  document.getElementById('promoSearch').value = '';
+  document.getElementById('promoSuggest').hidden = true;
+  openPromoteur(id);
+}
+
+function openPromoteur(id){
+  const pr = PROMOTEURS.find(x=>x.id===id);
+  if(!pr) return;
+  const projs = [...PROJETS, ...approvedAsProjets()].filter(p=>p.dev===pr.name);
+  document.getElementById('promoteurContent').innerHTML = `
+    <div class="promo-header">
+      <div class="promo-badge${pr.dark?' dark':''}" style="${pr.logo?'':`background:${pr.accent}1a;color:${pr.accent}`}">${pr.logo?`<img class="promo-logo" src="${pr.logo}" alt="${pr.name}" />`:promoInitials(pr.name)}</div>
+      <div>
+        <h1>${pr.name}</h1>
+        <div class="ph-tag">${pr.tag||''}</div>
+        ${pr.desc?`<div class="ph-desc">${pr.desc}</div>`:''}
+        <div class="ph-contact">
+          ${pr.tel?`<span>${IC.phone}${pr.tel}</span>`:''}
+          ${pr.email?`<span>${IC.mail}${pr.email}</span>`:''}
+          ${pr.url?`<span><a href="${pr.url}" target="_blank" rel="noopener">${pr.url.replace(/^https?:\/\//,'').replace(/\/$/,'')}</a></span>`:''}
+        </div>
+      </div>
+    </div>
+    <h2 style="font-family:var(--font-display);font-weight:700;font-size:17px;margin-bottom:14px">
+      ${projs.length} projet${projs.length>1?'s':''} en commercialisation
+    </h2>
+    <div class="promo-projects">
+      ${projs.length ? projs.map(p=>cardHTML(p)).join('')
+        : '<div class="no-results" style="grid-column:1/-1">'+IC.pin+'<h3>Aucun projet en ligne</h3><p>Aucun projet publié pour ce promoteur pour le moment.</p></div>'}
+    </div>`;
+  showView('promoteur');
+}
+function openPromoteurByName(name){
+  const pr = PROMOTEURS.find(x=>x.name===name);
+  if(pr) openPromoteur(pr.id);
+}
+function heroGo(forced){
+  const raw=document.getElementById('heroInput').value.trim();
+  let loc = forced || 'ALL';
+  if(!forced){
+    if(raw && norm(raw)!=="toute la wilaya d alger"){
+      const m=QUARTIERS.find(q=>norm(q.name)===norm(raw)) || QUARTIERS.find(q=>norm(q.name).includes(norm(raw)));
+      loc = m ? m.name : raw;
+    }
+  }
+  goResults(loc);
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.ff')) { const fs=document.getElementById('filterSuggest'); if(fs) fs.hidden=true; }
+  if(!e.target.closest('.promo-search')) { const ps=document.getElementById('promoSuggest'); if(ps) ps.hidden=true; }
+});
+
+/* =================== RESULTS =================== */
+function goResults(loc){
+  state.loc = (loc==='ALL'||!loc) ? '' : loc;
+  document.getElementById('fLoc').value = state.loc;
+  if(state.status && state.status!=='ALL') document.getElementById('fStatus').value = state.status;
+  showView('results');
+  syncFiltersFromState();
+  renderResults();
+}
+function syncFiltersFromState(){
+  document.getElementById('fType').value = state.type;
+  document.getElementById('fPriceMin').value = state.priceMin;
+  document.getElementById('fPriceMax').value = state.priceMax;
+}
+function toggleMore(){
+  const p=document.getElementById('morePanel'); const b=document.getElementById('btnMore');
+  p.classList.toggle('open'); b.classList.toggle('on', p.classList.contains('open'));
+}
+function setPill(btn,key){
+  btn.parentElement.querySelectorAll('.pill').forEach(x=>x.classList.toggle('on', x===btn));
+  state[key] = key==='delai' ? parseInt(btn.dataset.v) : btn.dataset.v;
+}
+function filterSuggest(val){
+  const box=document.getElementById('filterSuggest');
+  if(!val.trim()){ box.hidden=true; return; }
+  const v=norm(val);
+  const m=QUARTIERS.filter(q=>norm(q.name).includes(v));
+  box.innerHTML = (`<div onclick="pickFilterLoc('')">${IC.pin}<span><strong>Toute la wilaya d'Alger</strong></span></div>`) +
+    m.map(q=>`<div onclick="pickFilterLoc('${q.name}')">${IC.pin}<span>${q.name}</span></div>`).join('');
+  box.hidden=false;
+}
+function pickFilterLoc(name){
+  document.getElementById('fLoc').value=name;
+  document.getElementById('filterSuggest').hidden=true;
+  runSearch();
+}
+function runSearch(){
+  state.loc = canonQuartier(document.getElementById('fLoc').value.trim());
+  document.getElementById('fLoc').value = state.loc;
+  state.priceMin = parseInt(document.getElementById('fPriceMin').value)||0;
+  state.priceMax = parseInt(document.getElementById('fPriceMax').value)||999999999;
+  state.type = document.getElementById('fType').value;
+  const st = document.getElementById('fStatus').value;
+  state.status = st==='any' ? 'ALL' : st;
+  document.getElementById('filterSuggest').hidden=true;
+  renderResults();
+}
+
+function approvedAsProjets(){
+  return submittedProjects.filter(p=>p.status==='approved').map(p=>({
+    nom:p.nom, quartier:p.quartier, prixMin:p.prixMin, prixMax:p.prixMax||p.prixMin,
+    taille:p.unites>=100?'grand':p.unites>=30?'moyen':'petit',
+    unites:p.unites||0, etages:p.etages||0, ascenseurs:1,
+    parking:p.parking?'oui':'non', dispo:p.dispo,
+    livraisonMois:0, livraisonDate:p.livraison ? formatMonth(p.livraison) : 'Livraison immédiate',
+    credit:p.credit, premium:false, ajoute:p.date, dev:p.societe,
+    coords:{x:20+Math.random()*60,y:20+Math.random()*60},
+    photos:p.photos&&p.photos.length?p.photos.map(x=>({url:x})):null,
+    plans:p.plans||[],
+    f:(p.f||['F3']).map(n=>({n, s:'sur demande', p:fmt(p.prixMin)})),
+    description:p.description||'',
+    prestations:[
+      ...(p.parking?['Parking sous-sol']:[]),
+      ...(p.ascenseur?['Ascenseur']:[]),
+      ...(p.gardien?['Gardiennage 24 h']:[]),
+    ],
+    fromAdmin:true
+  }));
+}
+function formatMonth(m){
+  if(!m) return '';
+  const [y,mo]=m.split('-'); const names=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  return (names[parseInt(mo)-1]||'') + ' ' + y;
+}
+function photoUrl(p,i){
+  const ph=p.photos&&p.photos[i];
+  if(!ph) return null;
+  return typeof ph==='string' ? IMG(ph) : (ph.url || IMG(ph));
+}
+
+function currentFiltered(){
+  const all=[...PROJETS, ...approvedAsProjets()];
+  let list = all.filter(p=>{
+    if(state.loc && norm(p.quartier)!==norm(state.loc)) return false;
+    if(p.prixMin > state.priceMax) return false;
+    if(p.prixMax < state.priceMin) return false;
+    if(state.type!=='any' && !p.f.some(x=>x.n===state.type)) return false;
+    if(state.status!=='ALL' && p.dispo!==state.status) return false;
+    if(state.parking!=='any' && p.parking!==state.parking) return false;
+    if(state.credit==='oui' && !p.credit) return false;
+    if(state.delai>0 && p.dispo==='plan' && p.livraisonMois>state.delai) return false;
+    return true;
+  });
+  const sort=document.getElementById('fSort').value;
+  list.sort((a,b)=>{
+    if(sort==='price-asc') return (a.prixMin??Infinity)-(b.prixMin??Infinity);
+    if(sort==='price-desc') return (b.prixMin??-1)-(a.prixMin??-1);
+    if(sort==='delai') return a.livraisonMois-b.livraisonMois;
+    return 0; // recent = data order (already newest-first)
+  });
+  return list;
+}
+
+function cardHTML(p, plain){
+  const img = photoUrl(p,0);
+  const saved = state.saved.has(p.nom);
+  const promo = PROMOTEURS.find(x=>x.name===p.dev);
+  const darkBg = promo && promo.bg && promo.bg.toLowerCase()!=='#ffffff';
+  const devMark = promo && promo.logo
+    ? `<span class="dev dev-logo${darkBg?' dark':''}"${darkBg?` style="background:${promo.bg}"`:''}><img src="${promo.logo}" alt="${p.dev}" /></span>`
+    : `<span class="dev">${p.dev}</span>`;
+  const feats = [
+    p.etages ? `<span>${IC.floors}${p.etages} étages</span>` : '',
+    p.unites ? `<span>${IC.units}${p.unites} unités</span>` : '',
+    p.parking==='oui' ? `<span>${IC.parking}Parking</span>` : '',
+    p.ascenseurs ? `<span>${IC.lift}${p.ascenseurs} ascenseur${p.ascenseurs>1?'s':''}</span>` : '',
+  ].filter(Boolean).join('');
+  const tags = [
+    p.dispo==='pret' ? '<span class="tag tag-ready">Prêt à habiter</span>' : '<span class="tag tag-plan">Sur plan · '+p.livraisonDate+'</span>',
+    p.credit ? '<span class="tag tag-credit">Crédit accepté</span>' : '',
+  ].filter(Boolean).join('');
+  return `
+  <article class="card${p.premium?' premium':''}" data-nom="${p.nom}" onclick="openDetail(this.dataset.nom)"
+    onmouseenter="highlightPin('${p.nom}',true)" onmouseleave="highlightPin('${p.nom}',false)">
+    <div class="card-media">
+      ${p.premium?'<span class="flag">À la une</span>':''}
+      ${img?`<img src="${img}" alt="${p.nom}" loading="lazy" />`:'<div style="width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;color:#5b6d68;font-size:13px">Photo à venir</div>'}
+      <button class="card-save${saved?' saved':''}" title="Sauvegarder"
+        onclick="event.stopPropagation();toggleSave('${p.nom}',this)">${saved?IC.heartFill:IC.heart}</button>
+      ${p.photos&&p.photos.length>1?`<span class="photocount">${IC.camera}${p.photos.length}</span>`:''}
+    </div>
+    <div class="card-body">
+      <div class="card-price">${p.prixSurDemande ? '<span class="sur-demande">Prix sur demande</span>' : '<span class="from">à partir de</span>'+fmt(p.prixMin)}</div>
+      <div class="card-title">${p.nom}</div>
+      <div class="card-loc">${IC.pin}${p.quartier}, Alger</div>
+      <div class="card-feat">${feats}</div>
+      <div class="card-status">${tags}</div>
+      <div class="card-foot">
+        ${devMark}
+        <span class="type-pills">${p.f.map(x=>`<span class="type-pill">${x.n}</span>`).join('')}</span>
+      </div>
+    </div>
+  </article>`;
+}
+
+function renderResults(){
+  const list=currentFiltered();
+  const where = state.loc ? state.loc : "Alger";
+  document.getElementById('resTitle').textContent = 'Projets neufs à ' + where;
+  document.getElementById('resCount').textContent = list.length
+    ? list.length + ' résultat' + (list.length>1?'s':'') : '';
+  const host=document.getElementById('resultsList');
+  if(!list.length){
+    host.innerHTML = `<div class="no-results">${IC.pin}<h3>Aucun projet ne correspond</h3>
+      <p>Essayez d'élargir votre budget, de changer de quartier ou de retirer un filtre.</p></div>`;
+    document.getElementById('mapPins').innerHTML='';
+    return;
+  }
+  host.innerHTML = list.map((p,i)=>cardHTML(p).replace('<article class="card','<article style="--i:'+i+'" class="card rise')).join('');
+  renderPins(list);
+}
+
+/* =================== MAP =================== */
+function renderPins(list){
+  document.getElementById('mapPins').innerHTML = list.map(p=>`
+    <button class="map-pin" data-nom="${p.nom}" style="left:${p.coords.x}%;top:${p.coords.y}%"
+      onclick="openDetail('${p.nom.replace(/'/g,'')}')"
+      onmouseenter="highlightCard('${p.nom}',true)" onmouseleave="highlightCard('${p.nom}',false)">
+      ${p.prixSurDemande ? 'Sur devis' : fmtShort(p.prixMin)}
+    </button>`).join('');
+}
+function highlightPin(nom,on){
+  const pin=document.querySelector('.map-pin[data-nom="'+CSS.escape(nom)+'"]');
+  if(pin) pin.classList.toggle('is-active',on);
+}
+function highlightCard(nom,on){
+  const c=document.querySelector('.card[data-nom="'+CSS.escape(nom)+'"]');
+  if(c){ c.style.borderColor = on ? 'var(--brand)' : ''; }
+}
+function toggleMap(){
+  const ov=document.getElementById('mapOverlay');
+  const shown=ov.classList.toggle('show');
+  document.getElementById('mapFab').style.display = shown ? 'none' : '';
+  document.body.style.overflow = shown ? 'hidden' : '';
+}
+
+/* =================== SAVE =================== */
+function toggleSave(nom,btn){
+  if(state.saved.has(nom)) state.saved.delete(nom); else state.saved.add(nom);
+  const on=state.saved.has(nom);
+  btn.classList.toggle('saved',on);
+  btn.innerHTML = on ? IC.heartFill : IC.heart;
+  persistSaved();
+}
+
+/* =================== DETAIL =================== */
+function openDetail(nom){
+  const p=[...PROJETS, ...approvedAsProjets()].find(x=>x.nom===nom);
+  if(!p) return;
+  const photos=(p.photos||[]).map((_,i)=>photoUrl(p,i)).filter(Boolean);
+  window.GAL = photos;
+  const g=document.getElementById('detailGallery');
+  if(photos.length){
+    const i1 = photos[1]?1:0;
+    const i2 = photos[2]?2:i1;
+    const extra = photos.length - 3;
+    g.innerHTML = `<div class="gallery">
+      <img class="g-main" src="${photos[0]}" alt="${p.nom}" onclick="openLightbox(0)" />
+      <img src="${photos[i1]}" alt="" onclick="openLightbox(${i1})" />
+      <div class="${extra>0?'g-more':''}">
+        <img src="${photos[i2]}" alt="" onclick="openLightbox(${i2})" />
+        ${extra>0?`<span onclick="openLightbox(3)">+${extra} photo${extra>1?'s':''}</span>`:''}
+      </div>
+    </div>`;
+  } else {
+    g.innerHTML = `<div style="padding:40px 0;color:#5b6d68;font-size:14px">Photos du projet à venir</div>`;
+  }
+
+  const extra = PROJET_EXTRA[p.nom] || {};
+  const description = p.description || extra.description || '';
+  const prestations = (p.prestations && p.prestations.length ? p.prestations : extra.prestations) || [];
+  const ready = p.dispo==='pret';
+  const promo = PROMOTEURS.find(x=>x.name===p.dev);
+  const wa = promo && promo.whatsapp
+    ? 'https://wa.me/'+promo.whatsapp+'?text='+encodeURIComponent('Bonjour, je suis intéressé(e) par le projet « '+p.nom+' » ('+p.quartier+'). Pouvez-vous m\'envoyer les disponibilités et les prix ?')
+    : null;
+  const banks = p.credit===true
+    ? 'Financement bancaire accepté — CPA, BNA, BADR et Al Baraka Banque.'
+    : p.credit===false
+    ? 'Sans crédit bancaire : paiement comptant ou échelonné directement auprès du promoteur.'
+    : 'Crédit bancaire : à confirmer auprès du promoteur.';
+  const finBody = ready
+    ? `<p class="pay-note">Paiement comptant ou par crédit bancaire. Acte de vente notarié à la signature, remise des clés immédiate.</p>
+       <p class="pay-note">${banks}</p>`
+    : `<div class="pay-schedule">
+         ${[['À la réservation','20 %'],['Achèvement des fondations','20 %'],['Achèvement du gros œuvre','30 %'],['Achèvement des finitions','20 %'],['Remise des clés','10 %']]
+           .map(r=>`<div class="pay-row"><span>${r[0]}</span><span>${r[1]}</span></div>`).join('')}
+       </div>
+       <p class="pay-note">Échéancier indicatif, encadré par le contrat VEFA. ${banks}</p>`;
+
+  document.getElementById('detailContent').innerHTML = `
+  <div class="detail-grid detail-solo">
+    <div class="detail-main">
+      <h1>${p.nom}</h1>
+      <div class="detail-loc">${IC.pin}${p.adresse ? p.adresse : p.quartier+', Alger'}</div>
+      <div class="detail-price">${p.prixSurDemande ? 'Prix sur demande' : 'À partir de '+fmt(p.prixMin)}</div>
+
+      <div class="key-info">
+        <div class="ki"><span class="ki-l">Disponibilité</span><span class="ki-v ${ready?'is-ready':'is-plan'}">${ready?'Prêt à habiter':'Sur plan (VEFA)'}</span></div>
+        <div class="ki"><span class="ki-l">${ready?'Remise des clés':'Livraison prévue'}</span><span class="ki-v">${p.livraisonDate}</span></div>
+        ${p.avancement?`<div class="ki"><span class="ki-l">Avancement des travaux</span><span class="ki-v">${p.avancement}</span></div>`:''}
+        <div class="ki"><span class="ki-l">Quartier</span><span class="ki-v">${p.quartier}</span></div>
+        ${p.parking==='oui'?`<div class="ki"><span class="ki-l">Parking</span><span class="ki-v">Sous-sol</span></div>`:''}
+        <div class="ki"><span class="ki-l">Crédit bancaire</span><span class="ki-v">${p.credit===true?'Accepté':p.credit===false?'Non':'À confirmer'}</span></div>
+      </div>
+
+      ${wa ? `<a class="btn-wa" href="${wa}" target="_blank" rel="noopener">${IC.whatsapp} Contacter sur WhatsApp</a>` : ''}
+
+      ${description ? `<div class="sec"><h2>À propos du projet</h2><p class="desc-text">${description}</p></div>` : ''}
+
+      ${p.plans&&p.plans.length?`
+      <div class="sec">
+        <h2>Plans</h2>
+        <div class="plans-row">
+          ${p.plans.map(pl=>{const u=typeof pl==='string'?PLAN(pl):pl;return `<img src="${u}" alt="Plan" onclick="openLightbox('${u}')" />`;}).join('')}
+        </div>
+      </div>`:''}
+    </div>
+  </div>`;
+  showView('detail');
+}
+
+/* =================== LIGHTBOX =================== */
+let lbList=[], lbIdx=0;
+function openLightbox(arg){
+  if(typeof arg==='number'){ lbList = (window.GAL||[]); lbIdx = arg; }
+  else { lbList = [arg]; lbIdx = 0; }
+  if(!lbList.length) return;
+  renderLightbox();
+  document.getElementById('lightbox').classList.add('open');
+}
+function renderLightbox(){
+  document.getElementById('lightboxImg').src = lbList[lbIdx];
+  const multi = lbList.length>1;
+  document.getElementById('lightboxCount').textContent = multi ? (lbIdx+1)+' / '+lbList.length : '';
+  document.querySelector('.lb-prev').style.display = multi ? 'flex' : 'none';
+  document.querySelector('.lb-next').style.display = multi ? 'flex' : 'none';
+}
+function lightboxStep(d){ if(!lbList.length) return; lbIdx=(lbIdx+d+lbList.length)%lbList.length; renderLightbox(); }
+function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  if(e.key==='Escape') closeLightbox();
+  else if(e.key==='ArrowLeft') lightboxStep(-1);
+  else if(e.key==='ArrowRight') lightboxStep(1);
+});
+
+/* =================== CONTACT MODAL =================== */
+function openModal(nom){
+  document.getElementById('contactSub').textContent=nom;
+  document.getElementById('contactBody').hidden=false;
+  document.getElementById('contactOk').hidden=true;
+  document.getElementById('contactModal').classList.add('open');
+}
+function closeModal(){ document.getElementById('contactModal').classList.remove('open'); }
+function submitContact(){
+  const nom=document.getElementById('c_nom').value.trim();
+  const tel=document.getElementById('c_tel').value.trim();
+  if(!nom||!tel){ alert('Indiquez votre nom et votre téléphone.'); return; }
+  document.getElementById('contactBody').hidden=true;
+  document.getElementById('contactOk').hidden=false;
+}
+document.getElementById('contactModal').addEventListener('click',e=>{ if(e.target.id==='contactModal') closeModal(); });
+
+/* =================== PUBLISH =================== */
+function populateQuartierSelect(){
+  const sel=document.getElementById('s_quartier');
+  if(sel && sel.options.length<=1){
+    QUARTIERS.forEach(q=>{ const o=document.createElement('option'); o.textContent=q.name; sel.appendChild(o); });
+  }
+}
+function previewFiles(input,containerId){
+  const c=document.getElementById(containerId);
+  Array.from(input.files).forEach(file=>{
+    const d=document.createElement('div'); d.className='pv';
+    if(file.type.startsWith('image/')){
+      const img=document.createElement('img'); img.src=URL.createObjectURL(file); d.appendChild(img);
+    } else { d.textContent='📄'; }
+    const b=document.createElement('button'); b.textContent='×'; b.onclick=()=>d.remove(); d.appendChild(b);
+    c.appendChild(d);
+  });
+}
+function submitProjet(){
+  const req=[['s_nom','le nom du projet'],['s_quartier','le quartier'],['s_etages','le nombre d\'étages'],
+    ['s_unites','le nombre d\'unités'],['s_dispo','la disponibilité'],['s_prix','le prix de départ'],
+    ['s_societe','le nom du promoteur'],['s_tel','le téléphone']];
+  for(const [id,label] of req){
+    const el=document.getElementById(id);
+    if(!el.value.trim()){ el.focus(); el.style.borderColor='#b42318'; setTimeout(()=>el.style.borderColor='',2000);
+      alert('Veuillez renseigner : '+label); return; }
+  }
+  const types=[...document.querySelectorAll('.s_type:checked')].map(x=>x.value);
+  const photos=[...document.querySelectorAll('#pvPhotos .pv img')].map(i=>i.src);
+  const plans=[...document.querySelectorAll('#pvPlans .pv img')].map(i=>i.src);
+  const t=new Date();
+  submittedProjects.push({
+    id:nextId++, nom:document.getElementById('s_nom').value.trim(),
+    quartier:document.getElementById('s_quartier').value,
+    societe:document.getElementById('s_societe').value.trim(),
+    tel:document.getElementById('s_tel').value.trim(),
+    prixMin:parseInt(document.getElementById('s_prix').value)||0,
+    prixMax:parseInt(document.getElementById('s_prixmax').value)||0,
+    dispo:document.getElementById('s_dispo').value,
+    livraison:document.getElementById('s_livraison').value,
+    etages:parseInt(document.getElementById('s_etages').value)||0,
+    unites:parseInt(document.getElementById('s_unites').value)||0,
+    description:document.getElementById('s_desc').value,
+    f:types.length?types:['F3'],
+    parking:document.getElementById('s_parking').checked,
+    credit:document.getElementById('s_credit').checked,
+    ascenseur:document.getElementById('s_ascenseur').checked,
+    gardien:document.getElementById('s_gardien').checked,
+    photos, plans, status:'pending',
+    date:t.getDate().toString().padStart(2,'0')+'/'+(t.getMonth()+1).toString().padStart(2,'0')+'/'+t.getFullYear(),
+  });
+  document.getElementById('publishForm').hidden=true;
+  document.getElementById('publishOk').hidden=false;
+  window.scrollTo({top:0});
+}
+
+/* =================== ADMIN =================== */
+const ADMIN_USER='admin', ADMIN_PASS='logementdz2026';
+let submittedProjects=[];
+let nextId=1;
+
+function adminLogin(){
+  const u=document.getElementById('adminUser').value.trim();
+  const p=document.getElementById('adminPass').value;
+  if(u===ADMIN_USER && p===ADMIN_PASS){
+    document.getElementById('adminErr').style.display='none';
+    renderAdmin(); showView('admin');
+  } else {
+    document.getElementById('adminErr').style.display='block';
+    document.getElementById('adminPass').value='';
+  }
+}
+function renderAdmin(){
+  const pending=submittedProjects.filter(p=>p.status==='pending');
+  const approved=submittedProjects.filter(p=>p.status==='approved');
+  document.getElementById('adminStats').innerHTML=`
+    <div class="admin-stat"><div class="n">${submittedProjects.length}</div><div class="l">Projets soumis</div></div>
+    <div class="admin-stat"><div class="n" style="color:var(--amber)">${pending.length}</div><div class="l">En attente</div></div>
+    <div class="admin-stat"><div class="n" style="color:var(--brand-deep)">${approved.length}</div><div class="l">En ligne</div></div>`;
+  document.getElementById('pendingCount').textContent=pending.length+' projet(s)';
+  document.getElementById('approvedCount').textContent=approved.length+' projet(s)';
+  document.getElementById('pendingBody').innerHTML = pending.length
+    ? pending.map(adminRow).join('') : '<tr><td colspan="6" class="aempty">Aucun projet en attente</td></tr>';
+  document.getElementById('approvedBody').innerHTML = approved.length
+    ? approved.map(adminRow).join('') : '<tr><td colspan="6" class="aempty">Aucun projet en ligne</td></tr>';
+}
+function adminRow(p){
+  const lab={pending:'En attente',approved:'En ligne',rejected:'Rejeté'};
+  const cls={pending:'sb-pending',approved:'sb-approved',rejected:'sb-rejected'};
+  const act = p.status==='pending'
+    ? `<button class="ok" onclick="setProjetStatus(${p.id},'approved')">Approuver</button><button class="no" onclick="setProjetStatus(${p.id},'rejected')">Rejeter</button>`
+    : `<button class="no" onclick="setProjetStatus(${p.id},'rejected')">Retirer</button>`;
+  return `<tr>
+    <td><strong>${p.nom}</strong><br><span style="color:var(--ink-3);font-size:11px">${(p.f||[]).join(', ')} — ${p.date}</span></td>
+    <td>${p.quartier}</td>
+    <td>${p.societe}<br><span style="color:var(--ink-3);font-size:11px">${p.tel}</span></td>
+    <td style="font-weight:600;color:var(--brand-deep)">${fmt(p.prixMin)}</td>
+    <td><span class="sb ${cls[p.status]}">${lab[p.status]}</span></td>
+    <td><div class="arow-actions">${act}</div></td>
+  </tr>`;
+}
+function setProjetStatus(id,st){
+  const p=submittedProjects.find(x=>x.id===id);
+  if(p){ p.status=st; renderAdmin(); }
+}
+
+/* =================== INIT =================== */
+bootstrap();
+</script>
+</body>
+</html>
